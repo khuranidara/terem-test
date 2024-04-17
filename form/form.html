@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5C67F2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #4a54e1;
+        }
+        #output {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-size: 16px;
+            width: 300px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form id="myForm" onsubmit="handleSubmit(event)">
+        <div id="dropdownsContainer"></div>
+        <input type="text" name="textInput1" placeholder="Введите текст здесь">
+        <input type="text" name="textInput2" placeholder="Введите текст здесь">
+        <button type="submit">Отправить</button>
+    </form>
+    <div id="output">Здесь будет вывод JSON</div>
+</div>
+
+<script>
+    const container = document.getElementById('dropdownsContainer');
+    for (let i = 1; i <= 5; i++) {
+        const select = document.createElement('select');
+        select.name = `dropdown${i}`;
+        for (let j = 1; j <= 5; j++) {
+            const option = document.createElement('option');
+            option.value = j;
+            option.textContent = j;
+            select.appendChild(option);
+        }
+        container.appendChild(select);
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        const form = document.getElementById('myForm');
+        const formData = new FormData(form);
+        const jsonData = {};
+        const queryParams = new URLSearchParams();
+        for (const [key, value] of formData.entries()) {
+            jsonData[key] = value;
+            queryParams.append(key, value);
+        }
+        document.getElementById('output').textContent = JSON.stringify(jsonData, null, 2);
+        const url = 'http://example.com/api/submit?' + queryParams.toString(); // Здесь подставьте ваш URL
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                alert('Ответ сервера: ' + JSON.stringify(data));
+            })
+            .catch(error => {
+                alert('Ошибка: ' + error.message);
+            });
+    }
+</script>
+</body>
+</html>

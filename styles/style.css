@@ -1,0 +1,91 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.page {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    width: 100vw;
+    height: 100vh;
+}
+
+.page__section {
+    width: 100%;
+}
+
+.page__section--full-width {
+    background-color: #FF1493;
+    border: solid 1px #000000;
+}
+
+.page__section--three-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.page__block {
+    background-color: #FFFACD;
+    border: solid 1px #000000;
+}
+
+.page__block--center {
+    background-color: #FFD700;
+    border: dashed 1px #000000;
+}
+
+.page__block--last {
+    background-color: #DAA520;
+}
+
+.page__section--split {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.page__part {
+    display: flex;
+    align-content: space-around;
+    justify-content: space-around;
+    align-items: center;
+    border: solid 1px #000000;
+}
+
+.page__part--one-third {
+    background-color: #008000;
+}
+
+.page__part--two-thirds {
+    background-color: #0000FF;
+}
+
+.modal-content {
+    background-color: #FEFEFE;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888888;
+    width: 80%;
+}
+
+.close {
+    color: #AAAAAA;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+    .page__section--three-columns,
+    .page__section--split
+    {
+        grid-template-columns: 1fr;
+    }
+}
